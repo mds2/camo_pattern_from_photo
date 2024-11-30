@@ -14,7 +14,7 @@ def make_camo_patch(
     palette = np.array(np.clip(palette, 0, 255), dtype=np.uint8)
     xs = np.linspace(0,1,size)
     ys = np.linspace(0,1,size)
-    noise = PerlinNoise(octaves=3, seed=2)
+    noise = PerlinNoise(octaves=5, seed=12)
     print("About to create big perlin noise image")
     lookups = np.array(
         [[noise([x, y], tile_sizes=[1,1]) for x in xs]
@@ -22,6 +22,14 @@ def make_camo_patch(
          ]
     )
     print("Created big perlin noise image")
+    lookup_inv_cdf = np.array(sorted(lookups.reshape((-1,)).tolist()))
+    lookup_approx_cdf = np.polyfit(
+        lookup_inv_cdf,
+        np.linspace(0.0, 1.0, lookup_inv_cdf.shape[0]),
+        deg=6
+    )
+    lookups = np.polyval(lookup_approx_cdf, lookups)
+    print("Fit and applied cdf polynomial to perlin noise range")
     range = [np.min(lookups), np.max(lookups)]
     lookups = palette.shape[0] * (lookups - range[0]) / (range[1] - range[0])
     lookups = np.array(
