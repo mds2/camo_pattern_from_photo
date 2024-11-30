@@ -14,7 +14,7 @@ def make_camo_patch(
     palette = np.array(np.clip(palette, 0, 255), dtype=np.uint8)
     xs = np.linspace(0,1,size)
     ys = np.linspace(0,1,size)
-    noise = PerlinNoise(octaves=5, seed=12)
+    noise = PerlinNoise(octaves=15, seed=12)
     print("About to create big perlin noise image")
     lookups = np.array(
         [[noise([x, y], tile_sizes=[1,1]) for x in xs]
