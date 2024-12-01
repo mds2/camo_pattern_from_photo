@@ -2,11 +2,14 @@ import numpy as np
 import cv2
 from cluster_image import cluster_img_colors
 from perlin_noise import PerlinNoise
+from typing import Optional
 
 
 def make_camo_patch(
         palette: np.ndarray,
-        size: int
+        size: int,
+        octaves: int = 15,
+        seed: Optional[int] = None,
 ) -> np.ndarray:
     """Makes a tileable camo patch from a palette.
     """
@@ -14,7 +17,7 @@ def make_camo_patch(
     palette = np.array(np.clip(palette, 0, 255), dtype=np.uint8)
     xs = np.linspace(0,1,size)
     ys = np.linspace(0,1,size)
-    noise = PerlinNoise(octaves=15, seed=12)
+    noise = PerlinNoise(octaves=octaves, seed=seed)
     print("About to create big perlin noise image")
     lookups = np.array(
         [[noise([x, y], tile_sizes=[1,1]) for x in xs]
@@ -52,19 +55,35 @@ if __name__ == "__main__":
                         default=256,
                         required=False,
                         help="Output camo image dimensions")
+    parser.add_argument('--seed',
+                        type=int,
+                        required=False,
+                        default=None,
+                        help="Seed for perlin noise")
+    parser.add_argument('--octaves',
+                        type=int,
+                        required=False,
+                        default=15,
+                        help="Octaves for perlin noise")
     parser.add_argument('--num-clusters', '-n',
                         type=int,
                         default=5,
                         help="Number of clusters")
     args = parser.parse_args()
     img = cv2.imread(str(args.input))
-    colors, reduced, pal = cluster_img_colors(img,
-                                              num_clusters = args.num_clusters)
+    colors, reduced, pal = cluster_img_colors(
+        img,
+        num_clusters = args.num_clusters,
+    )
     output_filename = args.input.with_stem(
         args.input.stem +
         f".camo.{args.num_clusters}.{args.size}",
     )
-    camo = make_camo_patch(pal, args.size)
+    camo = make_camo_patch(
+        pal, args.size,
+        octaves = args.octaves,
+        seed = args.seed,
+    )
     cv2.imwrite(str(output_filename),
                 camo)
     pal_filename = args.input.with_stem(
