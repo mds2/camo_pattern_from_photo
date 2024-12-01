@@ -16,6 +16,22 @@ indie video game.
 
 Also feel free to write to me, or to open an issue, if you have an actual use for this project and need me to give it a more permissive license.
 
+For instance, this program generates
+
+![(a camouflage pattern based on eastern US woodland colors)](https://github.com/mds2/camo_pattern_from_photo/blob/main/example/Pgh-foliage.camo.5.512.png?raw=true)
+
+from
+
+![(a sample of a photograph of trees in the eastern United States)](https://github.com/mds2/camo_pattern_from_photo/blob/main/example/Pgh-foliage.png?raw=true)
+
+And it generates
+
+![(a camouflage pattern based on southern California scrubland)](https://github.com/mds2/camo_pattern_from_photo/blob/main/example/socal-mountains-no-sky.camo.4.256.png?raw=true)
+
+from
+
+![(a sample of a photograph of southern California scrubland)](https://github.com/mds2/camo_pattern_from_photo/blob/main/example/socal-mountains-no-sky.png?raw=true)
+
 How to use it
 ---------------
 
