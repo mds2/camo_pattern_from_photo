@@ -9,6 +9,13 @@ For sample output, see folder `examples`.
 
 Caveat : if you're designing camouflage for people who will actually get shot at, please do not use this software as-is. It ignores any information about how the input scene is lit, how the camouflage wearer might be shaded, how pixel RGB values translate into clothing dye concentrations, and how those turn into clothing reflectance values.
 
+Oh yes, and the output images *are* (in fact) tileable.
+
+So feel free to use this to generate repeating textures for characters in your
+indie video game.
+
+Also feel free to write to me, or to open an issue, if you have an actual use for this project and need me to give it a more permissive license.
+
 How to use it
 ---------------
 
