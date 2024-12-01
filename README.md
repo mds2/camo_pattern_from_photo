@@ -7,6 +7,8 @@ Uses k-means clustering to extract the color palette, and perlin noise to drive 
 
 For sample output, see folder `examples`.
 
+Caveat : if you're designing camouflage for people who will actually get shot at, please do not use this software as-is. It ignores any information about how the input scene is lit, how the camouflage wearer might be shaded, how pixel RGB values translate into clothing dye concentrations, and how those turn into clothing reflectance values.
+
 How to use it
 ---------------
 
